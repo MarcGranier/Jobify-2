@@ -1,0 +1,22 @@
+{
+	"name": "jobify",
+	"version": "1.0.0",
+	"description": "#### Track Your Job Search",
+	"main": "index.js",
+	"type": "module",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/MarcGranier/Jobify-2.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/MarcGranier/Jobify-2/issues"
+	},
+	"homepage": "https://github.com/MarcGranier/Jobify-2#readme"
+}
+
