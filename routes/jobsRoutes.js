@@ -3,10 +3,10 @@ const router = express.Router()
 
 import {
 	getAllJobs,
-	showStats,
 	createJob,
 	updateJob,
-	deleteJob
+	deleteJob,
+	showStats
 } from '../controllers/jobsController.js'
 
 router.route('/').post(createJob).get(getAllJobs)
