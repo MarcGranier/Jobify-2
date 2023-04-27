@@ -1,7 +1,12 @@
 import express from 'express'
 const app = express()
+import bodyParser from 'body-parser'
 import dotenv from 'dotenv'
 dotenv.config()
+
+//body-parser lines
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 
 //db and authenticate user
 import connectDB from './db/connect.js'
