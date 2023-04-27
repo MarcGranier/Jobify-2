@@ -5,7 +5,7 @@ const login = (req, res) => {
 	res.send('login user')
 }
 const updateUser = (req, res) => {
-	res.send('updateUser')
+	res.send('update user')
 }
 
 export { register, login, updateUser }
