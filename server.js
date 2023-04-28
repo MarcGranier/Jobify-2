@@ -1,5 +1,6 @@
 import express from 'express'
 const app = express()
+import 'express-async-errors'
 import bodyParser from 'body-parser'
 import dotenv from 'dotenv'
 dotenv.config()
