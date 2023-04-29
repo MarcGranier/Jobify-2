@@ -43,5 +43,9 @@ UserSchema.pre('save', async function () {
 	this.password = await bcrypt.hash(this.password, salt)
 })
 
+UserSchema.methods.createJWT = function () {
+	console.log(this)
+}
+
 export default mongoose.model('User', UserSchema)
 
