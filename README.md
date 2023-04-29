@@ -1593,15 +1593,15 @@ npm install jsonwebtoken
 - jwt.sign(payload,secret,options)
 - createJWT
 
-```js
+````js
 return jwt.sign({ userId: this._id }, 'jwtSecret', { expiresIn: '1d' })
-```
+// ```							{id:this._id }
 
 ```js
 return jwt.sign({ userId: this._id }, process.env.JWT_SECRET, {
 	expiresIn: process.env.JWT_LIFETIME
 })
-```
+````
 
 #### JWT_SECRET and JWT_LIFETIME
 
