@@ -1749,7 +1749,7 @@ const registerUser = async (currentUser) => {
 			}
 		})
 
-		// will add later
+		//  #TODO will add later
 		// addUserToLocalStorage({
 		//   user,
 		//   token,

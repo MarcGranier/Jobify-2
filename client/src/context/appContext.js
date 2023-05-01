@@ -1,6 +1,7 @@
 import React, { useReducer, useContext } from 'react'
 
 import reducer from './reducer'
+import axios from 'axios'
 
 import {
 	DISPLAY_ALERT,
@@ -17,7 +18,8 @@ const initialState = {
 	alertType: '',
 	user: null,
 	token: null,
-	userLocation: ''
+	userLocation: '',
+	jobLocation: ''
 }
 
 const AppContext = React.createContext()
@@ -37,7 +39,24 @@ const AppProvider = ({ children }) => {
 	}
 
 	const registerUser = async (currentUser) => {
-		console.log(currentUser)
+		dispatch({ type: REGISTER_USER_BEGIN })
+		try {
+			const response = await axios.post('/api/v1/auth/register', currentUser)
+			console.log(response)
+			const { user, token, location } = response.data
+			dispatch({
+				type: REGISTER_USER_SUCCESS,
+				payload: { user, token, location }
+			})
+			// #TODO: save token to local storage
+		} catch (error) {
+			console.log(error.response)
+			dispatch({
+				type: REGISTER_USER_ERROR,
+				payload: { msg: error.response.data.msg }
+			})
+		}
+		clearAlert()
 	}
 	return (
 		<AppContext.Provider value={{ ...state, displayAlert, registerUser }}>
