@@ -13,17 +13,17 @@ import {
 
 const token = localStorage.getItem('token')
 const user = localStorage.getItem('user')
-const location = localStorage.getItem('location')
+const userLocation = localStorage.getItem('location')
 
 const initialState = {
 	isLoading: false,
 	showAlert: false,
 	alertText: '',
 	alertType: '',
-	user: null,
-	token: null,
-	userLocation: '',
-	jobLocation: ''
+	user: user ? JSON.parse(user) : null,
+	token: token,
+	userLocation: userLocation || '',
+	jobLocation: userLocation || ''
 }
 
 const AppContext = React.createContext()
@@ -44,8 +44,8 @@ const AppProvider = ({ children }) => {
 
 	const addUserToLocalStorage = ({ user, token, location }) => {
 		localStorage.setItem('user', JSON.stringify(user))
-		localStorage.setItem('token', JSON.stringify(token))
-		localStorage.setItem('location', JSON.stringify(location))
+		localStorage.setItem('token', token)
+		localStorage.setItem('location', location)
 	}
 
 	const removeUserFromLocalStorage = () => {
