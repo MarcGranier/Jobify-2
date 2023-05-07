@@ -20,7 +20,7 @@ const Navbar = () => {
 					<button
 						type='button'
 						className='btn'
-						onClick={() => console.log('show.hide dropdown')}
+						onClick={() => console.log('showhide dropdown')}
 					>
 						<FaUserCircle />
 						john
