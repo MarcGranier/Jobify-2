@@ -2458,7 +2458,7 @@ const links = [
 		id: 2,
 		text: 'all jobs',
 		path: 'all-jobs',
-		icon: <MdQueryStats />
+		icon: const links = [{ id: 1, text: 'stats', path: '/', icon: <IoBarChartSharp /> }]
 	},
 	{
 		id: 3,
