@@ -8,7 +8,7 @@ const getAllJobs = async (req, res) => {
 	res.send('get all jobs')
 }
 const updateJob = async (req, res) => {
-	res.send('update job')
+	res.send('updateJob')
 }
 const showStats = async (req, res) => {
 	res.send('show stats')

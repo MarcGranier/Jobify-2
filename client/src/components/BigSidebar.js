@@ -12,7 +12,7 @@ const BigSideBar = () => {
 					showSidebar ? 'sidebar-container ' : 'sidebar-container show-sidebar'
 				}
 			>
-				<div className='conttent'>
+				<div className='content'>
 					<header>
 						<Logo />
 					</header>
