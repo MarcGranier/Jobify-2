@@ -5,4 +5,5 @@ const auth = async (req, res, next) => {
 	console.log(authHeader)
 	next()
 }
+
 export default auth
