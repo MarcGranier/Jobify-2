@@ -1,7 +1,7 @@
-import React, { useReducer, useContext } from 'react';
+import React, { useReducer, useContext } from 'react'
 
-import reducer from './reducer';
-import axios from 'axios';
+import reducer from './reducer'
+import axios from 'axios'
 
 import {
 	DISPLAY_ALERT,
@@ -11,11 +11,11 @@ import {
 	SETUP_USER_ERROR,
 	TOGGLE_SIDEBAR,
 	LOGOUT_USER
-} from './actions';
+} from './actions'
 
-const token = localStorage.getItem('token');
-const user = localStorage.getItem('user');
-const userLocation = localStorage.getItem('location');
+const token = localStorage.getItem('token')
+const user = localStorage.getItem('user')
+const userLocation = localStorage.getItem('location')
 
 const initialState = {
 	isLoading: false,
@@ -27,67 +27,73 @@ const initialState = {
 	userLocation: userLocation || '',
 	jobLocation: userLocation || '',
 	showSidebar: false
-};
+}
 
-const AppContext = React.createContext();
+const AppContext = React.createContext()
 
 const AppProvider = ({ children }) => {
-	const [state, dispatch] = useReducer(reducer, initialState);
+	const [state, dispatch] = useReducer(reducer, initialState)
 
 	const displayAlert = () => {
-		dispatch({ type: DISPLAY_ALERT });
-		clearAlert();
-	};
+		dispatch({ type: DISPLAY_ALERT })
+		clearAlert()
+	}
 
 	const clearAlert = () => {
 		setTimeout(() => {
-			dispatch({ type: CLEAR_ALERT });
-		}, 3000);
-	};
+			dispatch({ type: CLEAR_ALERT })
+		}, 3000)
+	}
 
 	const addUserToLocalStorage = ({ user, token, location }) => {
-		localStorage.setItem('user', JSON.stringify(user));
-		localStorage.setItem('token', token);
-		localStorage.setItem('location', location);
-	};
+		localStorage.setItem('user', JSON.stringify(user))
+		localStorage.setItem('token', token)
+		localStorage.setItem('location', location)
+	}
 
 	const removeUserFromLocalStorage = () => {
-		localStorage.removeItem('token');
-		localStorage.removeItem('user');
-		localStorage.removeItem('location');
-	};
+		localStorage.removeItem('token')
+		localStorage.removeItem('user')
+		localStorage.removeItem('location')
+	}
 
 	const setupUser = async ({ currentUser, endPoint, alertText }) => {
-		dispatch({ type: SETUP_USER_BEGIN });
+		dispatch({ type: SETUP_USER_BEGIN })
 		try {
-			const { data } = await axios.post(
-				`/api/v1/auth/${endPoint}`,
-				currentUser
-			);
-			const { user, token, location } = data;
+			const { data } = await axios.post(`/api/v1/auth/${endPoint}`, currentUser)
+			const { user, token, location } = data
 			dispatch({
 				type: SETUP_USER_SUCCESS,
 				payload: { user, token, location, alertText }
-			});
-			addUserToLocalStorage({ user, token, location });
+			})
+			addUserToLocalStorage({ user, token, location })
 		} catch (error) {
 			dispatch({
 				type: SETUP_USER_ERROR,
 				payload: { msg: error.response.data.msg }
-			});
+			})
 		}
-		clearAlert();
-	};
+		clearAlert()
+	}
 	const toggleSidebar = () => {
-		dispatch({ type: TOGGLE_SIDEBAR });
-	};
+		dispatch({ type: TOGGLE_SIDEBAR })
+	}
 	const logoutUser = () => {
-		dispatch({ type: LOGOUT_USER });
-		removeUserFromLocalStorage();
-	};
+		dispatch({ type: LOGOUT_USER })
+		removeUserFromLocalStorage()
+	}
 	const updateUser = async (currentUser) => {
-		console.log(currentUser);
-	};
+		try {
+			const { data } = await axios.patch('/api/v1/updateUser', currentUser, {
+				headers: {
+					Authorization: `Bearer ${state.token}`
+				}
+			})
+			console.log(data)
+		} catch (error) {
+			console.log(error.reponse)
+		}
+	}
 
 	return (
 		<AppContext.Provider
@@ -102,11 +108,11 @@ const AppProvider = ({ children }) => {
 		>
 			{children}
 		</AppContext.Provider>
-	);
-};
+	)
+}
 
 const useAppContext = () => {
-	return useContext(AppContext);
-};
+	return useContext(AppContext)
+}
 
-export { AppProvider, initialState, useAppContext };
+export { AppProvider, initialState, useAppContext }
