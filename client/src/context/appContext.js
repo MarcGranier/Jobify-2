@@ -10,7 +10,7 @@ import {
 	SETUP_USER_SUCCESS,
 	SETUP_USER_ERROR,
 	TOGGLE_SIDEBAR,
-	LOGOUT_USER
+	LOGOUT_USER,
 } from './actions'
 
 const token = localStorage.getItem('token')
@@ -26,7 +26,7 @@ const initialState = {
 	token: token,
 	userLocation: userLocation || '',
 	jobLocation: userLocation || '',
-	showSidebar: false
+	showSidebar: false,
 }
 
 const AppContext = React.createContext()
@@ -64,13 +64,13 @@ const AppProvider = ({ children }) => {
 			const { user, token, location } = data
 			dispatch({
 				type: SETUP_USER_SUCCESS,
-				payload: { user, token, location, alertText }
+				payload: { user, token, location, alertText },
 			})
 			addUserToLocalStorage({ user, token, location })
 		} catch (error) {
 			dispatch({
 				type: SETUP_USER_ERROR,
-				payload: { msg: error.response.data.msg }
+				payload: { msg: error.response.data.msg },
 			})
 		}
 		clearAlert()
@@ -84,14 +84,18 @@ const AppProvider = ({ children }) => {
 	}
 	const updateUser = async (currentUser) => {
 		try {
-			const { data } = await axios.patch('/api/v1/updateUser', currentUser, {
-				headers: {
-					Authorization: `Bearer ${state.token}`
+			const { data } = await axios.patch(
+				'/api/v1/auth/updateUser',
+				currentUser,
+				{
+					headers: {
+						Authorization: `Bearer ${state.token}`,
+					},
 				}
-			})
+			)
 			console.log(data)
 		} catch (error) {
-			console.log(error.reponse)
+			console.log(error.response)
 		}
 	}
 
@@ -103,7 +107,7 @@ const AppProvider = ({ children }) => {
 				setupUser,
 				toggleSidebar,
 				logoutUser,
-				updateUser
+				updateUser,
 			}}
 		>
 			{children}
