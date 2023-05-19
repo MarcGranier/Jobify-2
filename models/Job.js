@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const UserSchema = new mongoose.Schema(
+const JobSchema = new mongoose.Schema(
 	{
 		company: {
 			type: String,
@@ -35,5 +35,4 @@ const UserSchema = new mongoose.Schema(
 	},
 	{ timestamps: true }
 )
-
 export default mongoose.model('Job', JobSchema)
