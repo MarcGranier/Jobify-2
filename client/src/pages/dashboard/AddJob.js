@@ -15,7 +15,8 @@ const AddJob = () => {
 		jobTypeOptions,
 		status,
 		statusOptions,
-		handleChange
+		handleChange,
+		clearValues
 	} = useAppContext()
 
 	const handleSubmit = (e) => {
@@ -87,6 +88,14 @@ const AddJob = () => {
 							disabled={isLoading}
 						>
 							submit
+						</button>
+						<button
+							className='btn btn-block clear-btn'
+							onClick={() => {
+								console.log('Hello')
+							}}
+						>
+							clear
 						</button>
 					</div>
 				</div>

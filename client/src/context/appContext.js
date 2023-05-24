@@ -15,6 +15,7 @@ import {
 	UPDATE_USER_SUCCESS,
 	UPDATE_USER_ERROR,
 	HANDLE_CHANGE,
+	CLEAR_VALUES
 } from './actions'
 
 const token = localStorage.getItem('token')
@@ -34,11 +35,11 @@ const initialState = {
 	editJobId: '',
 	position: '',
 	company: '',
-	// jobLocation: '',
+	jobLocation: userLocation || '',
 	jobTypeOptions: ['full-time', 'part-time', 'remote', 'internship'],
 	jobType: 'full-time',
 	statusOptions: ['interview', 'declined', 'pending'],
-	status: 'pending',
+	status: 'pending'
 }
 
 const AppContext = React.createContext()
@@ -48,7 +49,7 @@ const AppProvider = ({ children }) => {
 
 	//axios
 	const authFetch = axios.create({
-		baseURL: '/api/v1',
+		baseURL: '/api/v1'
 	})
 
 	//interceptor request
@@ -106,13 +107,13 @@ const AppProvider = ({ children }) => {
 			const { user, token, location } = data
 			dispatch({
 				type: SETUP_USER_SUCCESS,
-				payload: { user, token, location, alertText },
+				payload: { user, token, location, alertText }
 			})
 			addUserToLocalStorage({ user, token, location })
 		} catch (error) {
 			dispatch({
 				type: SETUP_USER_ERROR,
-				payload: { msg: error.response.data.msg },
+				payload: { msg: error.response.data.msg }
 			})
 		}
 		clearAlert()
@@ -133,22 +134,26 @@ const AppProvider = ({ children }) => {
 
 			dispatch({
 				type: UPDATE_USER_SUCCESS,
-				payload: { user, token, location },
+				payload: { user, token, location }
 			})
 			addUserToLocalStorage({ user, token, location })
 		} catch (error) {
 			if (error.response.status !== 401) {
 				dispatch({
 					type: UPDATE_USER_ERROR,
-					payload: { msg: error.response.data.msg },
+					payload: { msg: error.response.data.msg }
 				})
 			}
 		}
 		clearAlert()
 	}
 
-	const handleChange = ({name,value}) => {
-		dispatch({ type: HANDLE_CHANGE, payload: {name,value} })
+	const handleChange = ({ name, value }) => {
+		dispatch({ type: HANDLE_CHANGE, payload: { name, value } })
+	}
+
+	const clearValues = () => {
+		dispatch({ type: CLEAR_VALUES })
 	}
 
 	return (
@@ -161,6 +166,7 @@ const AppProvider = ({ children }) => {
 				logoutUser,
 				updateUser,
 				handleChange,
+				clearValues
 			}}
 		>
 			{children}
@@ -173,3 +179,4 @@ const useAppContext = () => {
 }
 
 export { AppProvider, initialState, useAppContext }
+
