@@ -1,4 +1,4 @@
-import React, { useReducer, useContext, useEffect } from 'react'
+import React, { useReducer, useContext } from 'react'
 
 import reducer from './reducer'
 import axios from 'axios'
@@ -187,32 +187,28 @@ const AppProvider = ({ children }) => {
 		clearAlert()
 	}	
 	
-	const getJobs = async () =>{
-		let url = `/jobs`
-		
-		dispatch({type: GET_JOBS_BEGIN})
-		try {
-			const{data} = await authFetch(url)
-			const {jobs, totalJobs, numOfPages} = data
-			dispatch({
-				type: GET_JOBS_SUCCESS,
-				payload: {
-					jobs,
-					totalJobs,
-					numOfPages,
-				},
-			})
-		} catch (error) {
-			console.log(error.response);
-		}
-		clearAlert()
-	}
+const getJobs = async () => {
+  let url = `/jobs`
+
+  dispatch({ type: GET_JOBS_BEGIN })
+  try {
+    const { data } = await authFetch(url)
+    const { jobs, totalJobs, numOfPages } = data
+    dispatch({
+      type: GET_JOBS_SUCCESS,
+      payload: {
+        jobs,
+        totalJobs,
+        numOfPages,
+      },
+    })
+  } catch (error) {
+    console.log(error.response)
+    logoutUser()
+  }
+  clearAlert()
+}
 	
-useEffect(()=>{
-	getJobs()	
-},{})
-
-
 	
 	return (
 		<AppContext.Provider

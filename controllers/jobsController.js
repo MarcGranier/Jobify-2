@@ -17,8 +17,7 @@ const getAllJobs = async (req, res) => {
 
   res
     .status(StatusCodes.OK)
-    .json({ jobs, totalJobs: jobs.length, numOfPages: 1 });
-		console.log(req.user.userId);	
+    .json({ jobs, totalJobs: jobs.length, numOfPages: 1 });		
 };
 
 
