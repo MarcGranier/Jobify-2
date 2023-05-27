@@ -208,6 +208,7 @@ const getJobs = async () => {
   }
   clearAlert()
 }
+
 	
 	
 	return (
@@ -221,7 +222,8 @@ const getJobs = async () => {
 				updateUser,
 				handleChange,
 				clearValues,
-				createJob
+				createJob,
+				getJobs,
 			}}
 		>
 			{children}
