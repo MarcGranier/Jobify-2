@@ -209,31 +209,37 @@ const getJobs = async () => {
   clearAlert()
 }
 
-	
+const setEditJob = (id) => {
+  console.log(`set edit job : ${id}`)
+}
+const deleteJob = (id) =>{
+  console.log(`delete : ${id}`)
+}
 	
 	return (
-		<AppContext.Provider
-			value={{
-				...state,
-				displayAlert,
-				setupUser,
-				toggleSidebar,
-				logoutUser,
-				updateUser,
-				handleChange,
-				clearValues,
-				createJob,
-				getJobs,
-			}}
-		>
-			{children}
-		</AppContext.Provider>
-	)
-}
+    <AppContext.Provider
+      value={{
+        ...state,
+        displayAlert,
+        setupUser,
+        toggleSidebar,
+        logoutUser,
+        updateUser,
+        handleChange,
+        clearValues,
+        createJob,
+        getJobs,
+        setEditJob,
+        deleteJob,
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
+};
 
 const useAppContext = () => {
-	return useContext(AppContext)
-}
+  return useContext(AppContext);
+};
 
-export { AppProvider, initialState, useAppContext }
-
+export { AppProvider, initialState, useAppContext };
