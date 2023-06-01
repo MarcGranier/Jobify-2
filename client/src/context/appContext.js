@@ -213,6 +213,9 @@ const getJobs = async () => {
 const setEditJob = (id) => {
 		dispatch({type: SET_EDIT_JOB, payload: { id } })
 }
+const editJob = () =>{
+	console.log('edit job');
+}
 const deleteJob = (id) =>{
   console.log(`delete : ${id}`)
 }
@@ -232,6 +235,7 @@ const deleteJob = (id) =>{
         getJobs,
         setEditJob,
         deleteJob,
+				editJob,
       }}
     >
       {children}
