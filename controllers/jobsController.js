@@ -20,31 +20,29 @@ const getAllJobs = async (req, res) => {
     .json({ jobs, totalJobs: jobs.length, numOfPages: 1 });		
 };
 
-
 const updateJob = async (req, res) => {
-  const { id: jobId } = req.params;
-  const { company, position } = req.body;
-
-  if (!position || !company) {
-    throw new BadRequestError('Please provide all values');
-  }
-  const job = await Job.findOne({ _id: jobId });
-
-  if (!job) {
-    throw new NotFoundError(`No job with id :${jobId}`);
-  }
-  // check permissions
-
-  checkPermissions(req.user, job.createdBy);
-
-  const updatedJob = await Job.findOneAndUpdate({ _id: jobId }, req.body, {
-    new: true,
-    runValidators: true,
-  });
-
-  res.status(StatusCodes.OK).json({ updatedJob });
-};
+  const {id:jobId} = req.params
+  const{company,position} = req.body
   
+  if (!position || !company) {
+		throw new BadRequestError('Please provide all values')
+  }
+  const job = await Job.findOne({ _id: jobId})
+  
+  if(!job) {
+    throw new NotFoundError(`No job with id: ${jobId}`)
+  }
+  
+  //check permissions
+  
+  const updatedJob = await Job.findOneAndUpdate({_id:jobId}, req.body, {
+    new:true,
+    runValidators:true
+  })
+  res.status(StatusCodes.OK).json({updateJob})
+}
+
+
 const deleteJob = async (req, res) => {
 	res.send('delete job')
 }
@@ -52,4 +50,4 @@ const showStats = async (req, res) => {
 	res.send('show stats')
 }
 
-export { createJob, deleteJob, getAllJobs, updateJob, showStats }
+export {createJob, deleteJob, getAllJobs, updateJob, showStats}
