@@ -39,7 +39,7 @@ const updateJob = async (req, res) => {
     new:true,
     runValidators:true
   })
-  res.status(StatusCodes.OK).json({updateJob})
+  res.status(StatusCodes.OK).json({updatedJob})
 }
 
 
