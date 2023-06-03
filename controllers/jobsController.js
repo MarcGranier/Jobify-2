@@ -39,6 +39,9 @@ const updateJob = async (req, res) => {
     new:true,
     runValidators:true
   })
+  
+  //check permissions
+  
   res.status(StatusCodes.OK).json({updatedJob})
 }
 
