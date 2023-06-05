@@ -21,6 +21,8 @@ import {
 	EDIT_JOB_BEGIN,
 	EDIT_JOB_SUCCESS,
 	EDIT_JOB_ERROR,
+	SHOW_STATS_BEGIN,
+	SHOW_STATS_SUCCESS,
 } from './actions'
 
 import { initialState } from './appContext'
@@ -202,6 +204,23 @@ if (action.type === EDIT_JOB_ERROR) {
 			alertText: action.payload.msg
 	}
 }
+if (action.type === SHOW_STATS_BEGIN) {
+		return {
+			...state,
+			isLoading: true, 
+			showAlert: false,
+	}
 }
-			export default reducer
+if (action.type === SHOW_STATS_SUCCESS) {
+		return {
+			...state,
+			isLoading: false,
+			stats:action.payload.stats,
+			monthlyApplications:action.payload.monthlyApplications
+		}
+	}
+	throw new Error(`no such action : ${action.type}`)
+}
+
+export default reducer
 

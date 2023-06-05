@@ -47,7 +47,7 @@ const initialState = {
 	editJobId: '',
 	position: '',
 	company: '',
-	jobLocation: userLocation || '',
+	// jobLocation: userLocation || '',
 	jobTypeOptions: ['full-time', 'part-time', 'remote', 'internship'],
 	jobType: 'full-time',
 	statusOptions: ['interview', 'declined', 'pending'],
@@ -221,83 +221,82 @@ const getJobs = async () => {
 const setEditJob = (id) => {
 		dispatch({type: SET_EDIT_JOB, payload: { id } })
 }
-const editJob = async() =>{
-	dispatch({type: EDIT_JOB_BEGIN})
-	try {
-		const{position, company, jobLocation, jobType, status} = state
-		await authFetch.patch(`/jobs/${state.editJobId}`, {
-			position, 
-			company, 
-			jobLocation, 
-			jobType, 
-			status,
-		})
-		dispatch({type: EDIT_JOB_SUCCESS})
-		dispatch ({type: CLEAR_VALUES})
-	} catch (error) {
-		if(error.response.status === 401) return
-		dispatch({
-			type: EDIT_JOB_ERROR,
-			payload:{msg:error.response.data.msg}
-		})
+	const editJob = async() =>{
+		dispatch({type: EDIT_JOB_BEGIN})
+		try {
+			const{position, company, jobLocation, jobType, status} = state
+			await authFetch.patch(`/jobs/${state.editJobId}`, {
+				position, 
+				company, 
+				jobLocation, 
+				jobType, 
+				status,
+			})
+			dispatch({type: EDIT_JOB_SUCCESS})
+			dispatch ({type: CLEAR_VALUES})
+		} catch (error) {
+			if(error.response.status === 401) return
+			dispatch({
+				type: EDIT_JOB_ERROR,
+				payload:{msg:error.response.data.msg}
+			})
+		}
+		clearAlert()	
 	}
-	clearAlert()	
-}
-const deleteJob = async (jobId) =>{
-	dispatch({type: DELETE_JOB_BEGIN})
-	try {
-		await authFetch.delete(`/jobs/${jobId}`)
-		getJobs()
-	} catch (error) {
-		console.log(error.response);
-		//logoutUser
+	const deleteJob = async (jobId) =>{
+		dispatch({type: DELETE_JOB_BEGIN})
+		try {
+			await authFetch.delete(`/jobs/${jobId}`)
+			getJobs()
+		} catch (error) {
+			console.log(error.response);
+			//logoutUser
+		}
 	}
-}
-		 const showStats = async () => {
-    dispatch({ type: SHOW_STATS_BEGIN });
-    try {
-      const { data } = await authFetch('/jobs/stats');
-      dispatch({
-        type: SHOW_STATS_SUCCESS,
-        payload: {
-          stats: data.defaultStats,
-          monthlyApplications: data.monthlyApplications,
-        },
-      });
-    } catch (error) {
-      logoutUser();
-    }
-    clearAlert();
-  };
-		
-return (
-    <AppContext.Provider
-      value={{
-        ...state,
-        displayAlert,
-        setupUser,
-        toggleSidebar,
-        logoutUser,
-        updateUser,
-        handleChange,
-        clearValues,
-        createJob,
-        getJobs,
-        setEditJob,
-        deleteJob,
-        editJob,
-        showStats,
-        clearFilters,
-        changePage,
-      }}
-    >
-      {children}
-    </AppContext.Provider>
-  );
+const showStats = async() => {
+	dispatch({type:SHOW_STATS_BEGIN})
+	try {
+		const {data} = await authFetch('/jobs/stats')
+		dispatch ({
+			typr:SHOW_STATS_SUCCESS, 
+			payload:{
+				stats:data.defaultStats,
+				monthlyApplications:data.monthlyApplications			
+		},
+	})
+	} catch (error) {
+		console.log(error.response)
+		//logoutUser()
+	}
+	clearAlert()
+}			
+	return (
+			<AppContext.Provider
+				value={{
+					...state,
+					displayAlert,
+					setupUser,
+					toggleSidebar,
+					logoutUser,
+					updateUser,
+					handleChange,
+					clearValues,
+					createJob,
+					getJobs,
+					setEditJob,
+					deleteJob,
+					editJob,
+					showStats,
+				}}
+			>
+				{children}
+			</AppContext.Provider>
+		);
 };
 
-const useAppContext = () => {
-  return useContext(AppContext);
-};
+	const useAppContext = () => {
+		return useContext(AppContext);
+	};
+
 
 export { AppProvider, initialState, useAppContext };
