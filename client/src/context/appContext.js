@@ -258,7 +258,7 @@ const showStats = async() => {
 	try {
 		const {data} = await authFetch('/jobs/stats')
 		dispatch ({
-			typr:SHOW_STATS_SUCCESS, 
+			type:SHOW_STATS_SUCCESS, 
 			payload:{
 				stats:data.defaultStats,
 				monthlyApplications:data.monthlyApplications			
