@@ -46,6 +46,7 @@
     "moment": "^2.29.4",
     "mongoose": "^7.0.5",
     "morgan": "^1.10.0",
+    "react-scripts": "^5.0.1",
     "validator": "^13.9.0"
   }
 }
