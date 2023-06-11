@@ -4470,8 +4470,6 @@ const getAllJobs = async (req, res) => {
 ```js
 JobsContainer.js
 
-import PageBtnContainer from './PageBtnContainer'
-
 const { numOfPages } = useAppContext()
 
 return (
@@ -4514,9 +4512,7 @@ const PageButtonContainer = () => {
 				<HiChevronDoubleLeft />
 				prev
 			</button>
-
 			<div className='btn-container'>buttons</div>
-
 			<button className='next-btn' onClick={nextPage}>
 				next
 				<HiChevronDoubleRight />
