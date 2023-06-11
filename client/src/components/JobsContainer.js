@@ -45,7 +45,6 @@ const JobsContainer = () => {
 					return <Job key={job._id} {...job} />
 				})}
 			</div>
-			<PageBtnContainer />
 			{numOfPages > 1 && <PageBtnContainer />}
 			{/* pagination buttons */}
 		</Wrapper>
