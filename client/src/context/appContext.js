@@ -23,6 +23,7 @@ import {
 	GET_JOBS_SUCCESS,
 	SET_EDIT_JOB,
 	DELETE_JOB_BEGIN,
+	DELETE_JOB_ERROR,
 	EDIT_JOB_BEGIN,
 	EDIT_JOB_SUCCESS,
 	EDIT_JOB_ERROR,
@@ -261,9 +262,15 @@ const AppProvider = ({ children }) => {
 			await authFetch.delete(`/jobs/${jobId}`)
 			getJobs()
 		} catch (error) {
-			logoutUser()
+			if (error.response.status === 401) return
+			dispatch({
+				type: DELETE_JOB_ERROR,
+				payload: { msg: error.response.data.msg },
+			})
 		}
+		clearAlert()
 	}
+
 	const showStats = async () => {
 		dispatch({ type: SHOW_STATS_BEGIN })
 		try {
