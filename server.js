@@ -10,6 +10,10 @@ import { dirname } from 'path'
 import { fileURLToPath } from 'url'
 import path from 'path'
 
+import helmet from 'helmet'
+import xss from 'xss-clean'
+import mongoSanitize from 'express-mongo-sanitize'
+
 //body-parser lines
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
