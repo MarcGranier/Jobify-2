@@ -122,7 +122,7 @@ const AppProvider = ({ children }) => {
 	}
 	const logoutUser = () => {
 		dispatch({ type: LOGOUT_USER })
-		//remove from localStorage
+		//remove from localStorage code
 	}
 	const updateUser = async (currentUser) => {
 		dispatch({ type: UPDATE_USER_BEGIN })
